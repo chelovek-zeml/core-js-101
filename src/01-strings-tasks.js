@@ -66,7 +66,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return value.split('').slice(7, value.length - 1).join("");
+  return value.split('').slice(7, value.length - 1).join('');
 }
 
 
@@ -81,7 +81,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
- return value.split('').shift();
+  return value.split('').shift();
 }
 
 /**
@@ -112,11 +112,11 @@ function removeLeadingAndTrailingWhitespaces(value) {
  */
 function repeatString(value, count) {
   let res = '';
-  while(count > 0) {
-    res = res + value;
-    count--;
+  const temp = Number(count);
+  for (let i = 0; i < temp; i += 1) {
+    res += value;
   }
-return res;
+  return res;
 }
 
 /**
@@ -147,7 +147,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-  return str.replace(str[0], "").replace(str[str.length - 1], "");
+  return str.replace(str[0], '').replace(str[str.length - 1], '');
 }
 
 
@@ -181,7 +181,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-  return str.split(";");
+  return str.split(';');
 }
 
 /**
@@ -208,7 +208,35 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
+  let first = '┌';
+  let last = '└';
+  let middle = '│';
+  let tempW = width;
+  let tempH = height;
 
+  while (tempW > 0) {
+    if (tempW !== 1) {
+      first += '─';
+      middle += ' ';
+      last += '─';
+      tempW -= 1;
+    } else {
+      first += '\n';
+      middle += '\n';
+      last += '\n';
+      tempW -= 1;
+    }
+  }
+  while (tempH > 1) {
+    if (tempH !== 2) {
+      first += middle;
+      tempH -= 1;
+    } else {
+      first += last;
+      tempH -= 1;
+    }
+  }
+  return first;
 }
 
 
@@ -229,17 +257,17 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-let alfb1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,!? ';
-let alfb2 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm.,!? ';
-let res = '';
-for (let i = 0; i < str.length; i++) {
-  for(let j = 0; j < alfb1.length; j++) {
-  if(str[i] === alfb1[j]) {
-    res = res + alfb2[j];
+  const alfb1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,!? ';
+  const alfb2 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm.,!? ';
+  let res = '';
+  for (let i = 0; i < str.length; i += 1) {
+    for (let j = 0; j < alfb1.length; j += 1) {
+      if (str[i] === alfb1[j]) {
+        res += alfb2[j];
+      }
+    }
   }
-  }
-}
-return res;
+  return res;
 }
 
 /**
@@ -256,7 +284,7 @@ return res;
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  if(typeof value === 'string') {
+  if (typeof value === 'string' || value instanceof String) {
     return true;
   }
   return false;
@@ -287,8 +315,19 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arr = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+
+  let temp;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (value === arr[i]) {
+      temp = i;
+    }
+  }
+  return temp;
 }
 
 
