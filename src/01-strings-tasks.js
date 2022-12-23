@@ -211,7 +211,7 @@ function getRectangleString(width, height) {
   let first = '┌';
   let last = '└';
   let middle = '│';
-  let tempW = width;
+  let tempW = width - 1;
   let tempH = height;
 
   while (tempW > 0) {
@@ -221,9 +221,9 @@ function getRectangleString(width, height) {
       last += '─';
       tempW -= 1;
     } else {
-      first += '\n';
-      middle += '\n';
-      last += '\n';
+      first += '┐\n';
+      middle += '│\n';
+      last += '┘\n';
       tempW -= 1;
     }
   }
