@@ -52,7 +52,7 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+  return (value1 / 2 + value2 / 2);
 }
 
 /**
@@ -231,11 +231,11 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  const temp = Number(value);
-  if (typeof temp === 'number') {
-    return temp;
-  }
-  return def;
+  let temp;
+  if (parseFloat(value)) {
+    temp = value;
+  } else temp = def;
+  return temp;
 }
 
 module.exports = {
